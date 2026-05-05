@@ -39,6 +39,12 @@ global.include = function(file)
 const {database} = include('databaseConnection');
 const userCollection = database.db(mongodb_database).collection('users');
 
+/**
+ * protect against nosql
+ */
+app.use(mongoSanitize(
+    {replaceWith: '%'}
+));
 
 /**
  * Sets up MongoDB session store with encryption.
