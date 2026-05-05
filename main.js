@@ -117,11 +117,11 @@ app.get('/signup', async (req, res) =>
 {
     const html = `
         <form action='signup' method='post'>
-            <input name='name' type='text' placeholder='name' required>
+            <input name='name' type='text' placeholder='name'>
             <br>
-            <input name='email' type='email' placeholder='email' required>
+            <input name='email' type='email' placeholder='email'>
             <br>
-            <input name='password' type='password' placeholder='password' required>
+            <input name='password' type='password' placeholder='password'>
             <br>
             <button type='submit'>Submit</button>
         </form>
@@ -154,7 +154,7 @@ app.post('/signup', async (req, res) =>
 
     if(validationResult.error)
     {
-        console.log(validationResult.error + "error validating with joi");
+        console.log(validationResult.error + " error validating with joi");
         res.redirect('/signup');
         return; 
         //i returned so i dont get error code flow direction split
@@ -189,9 +189,9 @@ app.get('/login', async (req, res) =>
 {
     const html = `
         <form action='login' method='post'>
-            <input name='email' type='email' placeholder='email' required>
+            <input name='email' type='email' placeholder='email'>
             <br>
-            <input name='password' type='password' placeholder='password' required>
+            <input name='password' type='password' placeholder='password'>
             <br>
             <button type='submit'>Submit</button>
         </form>
@@ -229,6 +229,11 @@ app.post('/login', async(req,res) =>
         req.session.authenticated = true;
         req.session.name = user.name;       //set session name to name from DB
         res.redirect('/');
+    }
+    else
+    {
+        console.log("wrong password or email");
+        res.redirect("/login")
     }
 });
 
